@@ -1,0 +1,79 @@
+---
+// Mailing List section with client-side form
+---
+
+<section id="mailing-list" class="py-20 lg:py-32 bg-[#2a2a2a]">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#f5f5f0] mb-4">
+        Mailing List
+      </h2>
+      <p class="text-[#a0a0a0] text-lg mb-12">
+        Get lesson openings, tour announcements, and occasional recordings.
+      </p>
+
+      <!-- Form -->
+      <form id="mailing-list-form" class="mb-6">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <input 
+            type="email" 
+            id="mailing-email"
+            name="email"
+            placeholder="your.email@example.com" 
+            required
+            class="flex-1 px-6 py-4 bg-[#1a1a1a] border border-[#3a3a3a] rounded-lg text-[#f5f5f0] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#009739] focus:border-transparent"
+          />
+          <button 
+            type="submit"
+            class="bg-[#009739] text-white px-10 py-4 rounded-lg hover:bg-[#007a2e] transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#2a2a2a] font-semibold shadow-lg whitespace-nowrap"
+          >
+            Join
+          </button>
+        </div>
+      </form>
+
+      <!-- Success Message (hidden by default) -->
+      <div id="mailing-success" class="hidden bg-[#009739]/10 border border-[#009739] rounded-lg p-6">
+        <div class="flex items-center justify-center gap-3 text-[#009739]">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <p class="font-semibold">Thanks for joining! Check your email for confirmation.</p>
+        </div>
+      </div>
+
+      <p class="text-[#a0a0a0] text-sm mt-6">
+        No spam. Unsubscribe anytime. We respect your privacy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('mailing-list-form') as HTMLFormElement;
+  const successMessage = document.getElementById('mailing-success');
+  const emailInput = document.getElementById('mailing-email') as HTMLInputElement;
+
+  if (form && successMessage && emailInput) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const email = emailInput.value;
+      
+      if (email && email.includes('@')) {
+        // In production, this would make an API call
+        // For now, just show success message
+        
+        form.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        
+        // Reset after 5 seconds
+        setTimeout(() => {
+          form.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+          form.reset();
+        }, 5000);
+      }
+    });
+  }
+</script>

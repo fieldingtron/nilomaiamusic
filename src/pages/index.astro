@@ -1,16 +1,130 @@
 ---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Lessons from '../components/Lessons.astro';
+import Tour from '../components/Tour.astro';
+import Calendar from '../components/Calendar.astro';
+import MailingList from '../components/MailingList.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 
+const siteUrl = 'https://nilomaia.com';
+const title = 'Nilo Maia | Professional Guitarist & Music Teacher';
+const description = 'Professional guitarist with 20+ years experience offering online guitar lessons and Brazil cultural immersion tours. Rooted in Brazilian musical tradition and spiritual lineage.';
+const ogImage = `${siteUrl}/og-image.jpg`;
 ---
 
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="guitar lessons, Brazilian music, online guitar teacher, Nilo Maia, bossa nova, samba, choro, Brazil tour, music immersion, Lumiar Brazil" />
+		<meta name="author" content="Nilo Maia" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content="Nilo Maia" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={siteUrl} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={ogImage} />
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={siteUrl} />
+		
+		<!-- JSON-LD Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Person",
+					"@id": `${siteUrl}/#person`,
+					"name": "Nilo Maia",
+					"url": siteUrl,
+					"image": ogImage,
+					"jobTitle": "Professional Guitarist & Music Teacher",
+					"description": "Professional guitarist with 20+ years experience, specializing in Brazilian musical traditions.",
+					"knowsAbout": ["Guitar", "Brazilian Music", "Bossa Nova", "Samba", "Music Education"],
+					"sameAs": [
+						"https://instagram.com/nilomaia",
+						"https://youtube.com/@nilomaia"
+					]
+				},
+				{
+					"@type": "Service",
+					"@id": `${siteUrl}/#service`,
+					"serviceType": "Music Lessons",
+					"provider": {
+						"@id": `${siteUrl}/#person`
+					},
+					"name": "Online Guitar Lessons",
+					"description": "Personalized 1:1 online guitar instruction focusing on Brazilian musical traditions, technique, and musicality.",
+					"areaServed": "Worldwide",
+					"availableChannel": {
+						"@type": "ServiceChannel",
+						"serviceUrl": `${siteUrl}#lessons`
+					}
+				},
+				{
+					"@type": "Event",
+					"@id": `${siteUrl}/#brazil-tour`,
+					"name": "Brazil Cultural Immersion Tour - Lumiar",
+					"description": "Small-group musical and cultural immersion in Lumiar, Brazil. Daily workshops, cultural exchange, nature exploration, and community gatherings.",
+					"startDate": "2026-02",
+					"endDate": "2026-02",
+					"eventStatus": "https://schema.org/EventScheduled",
+					"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+					"location": {
+						"@type": "Place",
+						"name": "Lumiar",
+						"address": {
+							"@type": "PostalAddress",
+							"addressLocality": "Lumiar",
+							"addressRegion": "Rio de Janeiro",
+							"addressCountry": "BR"
+						}
+					},
+					"organizer": {
+						"@id": `${siteUrl}/#person`
+					},
+					"offers": {
+						"@type": "Offer",
+						"availability": "https://schema.org/LimitedAvailability",
+						"url": `${siteUrl}#tour`
+					}
+				}
+			]
+		})} />
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="antialiased">
+		<Header />
+		<main>
+			<Hero />
+			<About />
+			<Lessons />
+			<Tour />
+			<Calendar />
+			<MailingList />
+			<Contact />
+		</main>
+		<Footer />
 	</body>
 </html>

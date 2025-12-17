@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brazilian-inspired color palette with dark mode */
+  
+  /* Brazilian accent colors */
+  --color-brazilian-green: #009739;
+  --color-brazilian-yellow: #fedd00;
+  --color-brazilian-blue: #002776;
+  
+  /* Dark mode base palette */
+  --color-charcoal: #1a1a1a;
+  --color-charcoal-light: #2a2a2a;
+  --color-charcoal-lighter: #3a3a3a;
+  --color-cream: #f5f5f0;
+  --color-cream-dark: #e5e5dc;
+  
+  /* Custom semantic colors */
+  --color-accent: var(--color-brazilian-green);
+  --color-accent-secondary: var(--color-brazilian-yellow);
+  --color-bg-primary: var(--color-charcoal);
+  --color-bg-secondary: var(--color-charcoal-light);
+  --color-text-primary: var(--color-cream);
+  --color-text-secondary: #a0a0a0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Dark mode base */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}

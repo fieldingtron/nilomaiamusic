@@ -1,0 +1,86 @@
+---
+// Hero section with gradient background and CTAs
+---
+
+<section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img 
+      src="https://nilo2.netlify.app/assets/hero.png" 
+      alt="Christ the Redeemer" 
+      class="w-full h-full object-cover"
+    />
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-[#1a1a1a]/70"></div>
+    
+    <!-- Abstract SVG pattern overlay -->
+    <svg class="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#009739;stop-opacity:0.3" />
+          <stop offset="50%" style="stop-color:#fedd00;stop-opacity:0.2" />
+          <stop offset="100%" style="stop-color:#002776;stop-opacity:0.3" />
+        </linearGradient>
+      </defs>
+      <circle cx="10%" cy="20%" r="150" fill="url(#grad1)" />
+      <circle cx="90%" cy="80%" r="200" fill="url(#grad1)" />
+      <circle cx="50%" cy="50%" r="100" fill="url(#grad1)" />
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#f5f5f0] mb-6 leading-tight">
+      Nilo Maia
+    </h1>
+    
+    <p class="text-lg sm:text-xl lg:text-2xl text-[#a0a0a0] max-w-3xl mx-auto mb-12 leading-relaxed">
+      Professional guitarist with 20+ years experience. Rooted in Brazilian tradition and a living lineage connecting music, culture, and spirituality.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+      <a 
+        href="#lessons" 
+        class="w-full sm:w-auto bg-[#009739] text-white px-8 py-4 rounded-lg hover:bg-[#007a2e] transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] font-semibold text-lg shadow-lg"
+      >
+        Online Guitar Lessons
+      </a>
+      <a 
+        href="#tour" 
+        class="w-full sm:w-auto border-2 border-[#fedd00] text-[#fedd00] px-8 py-4 rounded-lg hover:bg-[#fedd00] hover:text-[#1a1a1a] transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#fedd00] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] font-semibold text-lg shadow-lg"
+      >
+        Brazil Tour (February — Lumiar)
+      </a>
+    </div>
+
+    <!-- Trust Chips -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm text-[#a0a0a0]">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#009739]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span>20+ years professional</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#009739]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span>Online lessons worldwide</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-[#009739]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span>Small-group Brazil immersion</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <svg class="w-6 h-6 text-[#009739]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
+</section>

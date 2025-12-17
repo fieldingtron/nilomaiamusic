@@ -1,0 +1,122 @@
+---
+// Header component with sticky nav, mobile menu
+---
+
+<header class="sticky top-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-sm border-b border-[#3a3a3a]">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <a href="#" class="text-xl lg:text-2xl font-bold text-[#f5f5f0] hover:opacity-90 transition-opacity uppercase">
+        Nilo <span class="bg-gradient-to-r from-[#fedd00] to-[#009739] bg-clip-text text-transparent">Maia</span> Music
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        <a href="#about" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          About
+        </a>
+        <a href="#lessons" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          Lessons
+        </a>
+        <a href="#tour" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          Brazil Tour
+        </a>
+        <a href="#calendar" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          Calendar
+        </a>
+        <a href="#mailing-list" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          Mailing List
+        </a>
+        <a href="#contact" class="text-[#f5f5f0] hover:text-[#009739] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded px-2 py-1">
+          Contact
+        </a>
+        <a 
+          href="#calendar" 
+          class="bg-[#009739] text-white px-6 py-2 rounded-lg hover:bg-[#007a2e] transition-colors focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] font-medium"
+        >
+          Book a Session
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="lg:hidden text-[#f5f5f0] hover:text-[#009739] focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#1a1a1a] rounded p-2"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="hidden lg:hidden pb-4">
+      <div class="flex flex-col space-y-3">
+        <a href="#about" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          About
+        </a>
+        <a href="#lessons" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          Lessons
+        </a>
+        <a href="#tour" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          Brazil Tour
+        </a>
+        <a href="#calendar" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          Calendar
+        </a>
+        <a href="#mailing-list" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          Mailing List
+        </a>
+        <a href="#contact" class="text-[#f5f5f0] hover:text-[#009739] transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-[#009739] rounded">
+          Contact
+        </a>
+        <a 
+          href="#calendar" 
+          class="bg-[#009739] text-white px-6 py-3 rounded-lg hover:bg-[#007a2e] transition-colors text-center font-medium focus:outline-none focus:ring-2 focus:ring-[#009739]"
+        >
+          Book a Session
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (button && menu && menuIcon && closeIcon) {
+    button.addEventListener('click', () => {
+      const isOpen = menu.classList.contains('hidden');
+      
+      if (isOpen) {
+        menu.classList.remove('hidden');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close menu when clicking on a link
+    const mobileLinks = menu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>
