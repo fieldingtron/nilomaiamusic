@@ -60,17 +60,33 @@
               ></textarea>
             </div>
 
-            <!-- Hidden bot protection fields (honeypot & timing) -->
+            <!-- Honeypot for bot filtering -->
             <input type="text" name="honeypot" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-            <input type="hidden" name="startTime" id="startTime" />
 
             <button 
               type="submit"
               id="contact-submit-btn"
-              class="w-full bg-[#009739] text-white px-6 py-4 rounded-lg hover:bg-[#007a2e] transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#2a2a2a] font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full bg-[#009739] text-white px-6 py-4 rounded-lg hover:bg-[#007a2e] transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#009739] focus:ring-offset-2 focus:ring-offset-[#2a2a2a] font-semibold shadow-lg cursor-pointer"
             >
               Send Message
             </button>
+
+            <!-- Direct Email with Bot Scraper Shield -->
+            <div class="pt-4 border-t border-[#3a3a3a] text-center">
+              <p class="text-[#a0a0a0] text-sm mb-2">Or email Nilo directly:</p>
+              <button
+                type="button"
+                id="direct-email-btn"
+                class="inline-flex items-center gap-2 text-[#009739] hover:text-[#fedd00] font-medium transition-colors cursor-pointer group"
+                aria-label="Send email"
+              >
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span class="bot-shield font-mono text-sm underline group-hover:text-[#fedd00]">moc.liamg@tcatnoc.aiamolin</span>
+              </button>
+              <p class="text-xs text-[#777] mt-1">Click to open your email app</p>
+            </div>
           </form>
 
           <!-- Success Message -->
@@ -80,8 +96,8 @@
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
               <div>
-                <p class="font-semibold">Message sent!</p>
-                <p class="text-sm text-[#a0a0a0]">I'll get back to you within 24-48 hours.</p>
+                <p class="font-semibold">Opening your email app...</p>
+                <p class="text-sm text-[#a0a0a0]">Your message has been prepared in your email client to send to Nilo.</p>
               </div>
             </div>
           </div>
@@ -191,94 +207,83 @@
   </div>
 </section>
 
-<script>
-  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-  const successMessage = document.getElementById('contact-success');
-  const errorMessage = document.getElementById('contact-error');
-  const errorText = errorMessage ? errorMessage.querySelector('p') : null;
-  const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement;
-  const startTimeInput = document.getElementById('startTime') as HTMLInputElement;
+<style>
+  /* Renders reversed text normally (LTR) to humans, but bots scraping raw HTML see backwards string */
+  .bot-shield {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    user-select: all;
+  }
+</style>
 
-  if (startTimeInput) {
-    startTimeInput.value = Date.now().toString();
+<script>
+  // Obfuscated email segments: assembled only in memory upon user click/submit
+  const _u = "nilomaia.contact";
+  const _d = "gmail.com";
+  const getDestination = () => `${_u}@${_d}`;
+
+  // Direct email button handler
+  const directBtn = document.getElementById("direct-email-btn");
+  if (directBtn) {
+    directBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const subject = encodeURIComponent("Consultation & Lessons Inquiry - Nilo Maia");
+      window.location.href = `mailto:${getDestination()}?subject=${subject}`;
+    });
   }
 
+  // Form submit handler - launches user's mail client with prefilled note
+  const contactForm = document.getElementById("contact-form") as HTMLFormElement;
+  const successMessage = document.getElementById("contact-success");
+  const errorMessage = document.getElementById("contact-error");
+  const errorText = errorMessage ? errorMessage.querySelector("p") : null;
+
   if (contactForm && successMessage && errorMessage) {
-    contactForm.addEventListener('submit', async (e) => {
+    contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      
+
       const formData = new FormData(contactForm);
-      const name = (formData.get('name') as string || '').trim();
-      const email = (formData.get('email') as string || '').trim();
-      const message = (formData.get('message') as string || '').trim();
-      const honeypot = formData.get('honeypot') as string;
-      const startTime = formData.get('startTime') as string;
-      
-      // Client-side validation
-      if (!name || !email || !message || !email.includes('@')) {
-        if (errorText) errorText.textContent = "Please fill out all fields correctly.";
-        errorMessage.classList.remove('hidden');
-        successMessage.classList.add('hidden');
-        
-        setTimeout(() => {
-          errorMessage.classList.add('hidden');
-        }, 4000);
+      const honeypot = (formData.get("honeypot") as string) || "";
+
+      // Silent drop for automated bots filling the hidden honeypot
+      if (honeypot.trim() !== "") {
+        contactForm.reset();
         return;
       }
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-      }
+      const name = ((formData.get("name") as string) || "").trim();
+      const userEmail = ((formData.get("email") as string) || "").trim();
+      const message = ((formData.get("message") as string) || "").trim();
 
-      try {
-        const response = await fetch('/api/send-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            message,
-            honeypot,
-            startTime,
-          }),
-        });
-
-        const data = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-          throw new Error(data.message || 'There was an issue sending your message. Please try again.');
-        }
-
-        successMessage.classList.remove('hidden');
-        errorMessage.classList.add('hidden');
-        contactForm.reset();
-
-        if (startTimeInput) {
-          startTimeInput.value = Date.now().toString();
-        }
+      // Client-side validation
+      if (!name || !message) {
+        if (errorText) errorText.textContent = "Please fill in your name and message.";
+        errorMessage.classList.remove("hidden");
+        successMessage.classList.add("hidden");
 
         setTimeout(() => {
-          successMessage.classList.add('hidden');
-        }, 6000);
-      } catch (err: any) {
-        if (errorText) {
-          errorText.textContent = err.message || "Failed to send message. Please try again later.";
-        }
-        errorMessage.classList.remove('hidden');
-        successMessage.classList.add('hidden');
-
-        setTimeout(() => {
-          errorMessage.classList.add('hidden');
-        }, 5000);
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Send Message";
-        }
+          errorMessage.classList.add("hidden");
+        }, 3500);
+        return;
       }
+
+      const subject = encodeURIComponent(`Consultation Inquiry from ${name}`);
+      let emailBody = `Hi Nilo,\n\n${message}\n\n---\nFrom: ${name}`;
+      if (userEmail) {
+        emailBody += `\nReply Email: ${userEmail}`;
+      }
+      const body = encodeURIComponent(emailBody);
+
+      // Trigger mail client with assembled email
+      window.location.href = `mailto:${getDestination()}?subject=${subject}&body=${body}`;
+
+      successMessage.classList.remove("hidden");
+      errorMessage.classList.add("hidden");
+      contactForm.reset();
+
+      setTimeout(() => {
+        successMessage.classList.add("hidden");
+      }, 7000);
     });
   }
 </script>
